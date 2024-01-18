@@ -3,7 +3,8 @@ import feedparser
 from .models import News
 from bs4 import BeautifulSoup
 from datetime import datetime
-from .newsSource import NewsSourcefrom .newsRepository import NewsRepository
+from .newsSource import NewsSource
+from .newsRepository import NewsRepository
 
 nr = NewsRepository()
 
