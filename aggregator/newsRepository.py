@@ -1,6 +1,7 @@
 from .models import News
 from django.db.models import Q
 
+
 class NewsRepository:
     @staticmethod
     def save_news(title, description, content, pub_date, source, link, thumbnail, is_verified):
@@ -14,7 +15,6 @@ class NewsRepository:
             thumbnail=thumbnail,
         )
         news.save()
-
 
     @staticmethod
     def verify_news(news_id, status_string):
@@ -36,11 +36,12 @@ class NewsRepository:
         )
 
         results = [
-        {"title": item.title, "content": item.content}
-        for item in search_results_queryset
-    ]
+            {"title": item.title, "content": item.content}
+            for item in search_results_queryset
+        ]
         return results
 
     @staticmethod
-    def get_latest(self):
-        return []
+    def get_latest_by_source(source):
+        latest_entry = News.objects.filter(source=source).order_by('-pub_date').first()
+        return latest_entry
