@@ -4,21 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8732b84e-f12b-445b-8d41-63433d90999a" name="Changes" comment="First Commit">
-      <change afterPath="$PROJECT_DIR$/aggregator/esat.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aggregator/etv.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0005_alter_news_source_alter_news_title.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0006_alter_news_source_alter_news_title.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0007_alter_news_link_alter_news_thumbnail.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0008_alter_news_pub_date.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="8732b84e-f12b-445b-8d41-63433d90999a" name="Changes" comment="fix typo in fana.py">
+      <change afterPath="$PROJECT_DIR$/aggregator/credentials.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/aggregator/management/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/aggregator/management/commands/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/aggregator/management/commands/aggregate.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0009_subscription.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0010_alter_subscription_subscribers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/aggregator/sendUpdate.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/aggregator/templates/email-template.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/aggregator/token.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/token.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewsAggregator/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsAggregator/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aggregator/aggregate.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/aggregate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aggregator/bbcAmharic.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/aggregator/esat.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/esat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aggregator/etv.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/etv.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/aggregator/fana.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/fana.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aggregator/newsRepository.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/newsRepository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aggregator/newsSource.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/newsSource.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aggregator/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,11 +35,15 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/aggregator/sendUpdate.py" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
@@ -49,24 +56,56 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Django Server.NewsAggregator.executor": "Run",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Django Server.NewsAggregator.executor&quot;: &quot;Run&quot;,
+    &quot;Python.sendEmail.executor&quot;: &quot;Run&quot;,
+    &quot;Python.sendUpdate.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager">
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\tesfa\PycharmProjects\NewsAggregator\aggregator" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Django Server.NewsAggregator">
+    <configuration name="sendUpdate" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="NewsAggregator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/aggregator" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\tesfa\PycharmProjects\NewsAggregator\aggregator\sendUpdate.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="NewsAggregator" type="Python.DjangoServer" factoryName="Django server">
       <module name="NewsAggregator" />
       <option name="ENV_FILES" value="" />
@@ -92,6 +131,11 @@
       <option name="customRunCommand" value="" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.sendUpdate" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -115,7 +159,18 @@
       <workItem from="1705387126879" duration="10043000" />
       <workItem from="1705405658280" duration="2324000" />
       <workItem from="1705410852987" duration="4507000" />
-      <workItem from="1705558537650" duration="21456000" />
+      <workItem from="1705558537650" duration="22755000" />
+      <workItem from="1705736919262" duration="597000" />
+      <workItem from="1705741011247" duration="1379000" />
+      <workItem from="1705746390868" duration="5285000" />
+      <workItem from="1705903360886" duration="1182000" />
+      <workItem from="1705913893671" duration="9410000" />
+      <workItem from="1705990005874" duration="3826000" />
+      <workItem from="1705993872228" duration="199000" />
+      <workItem from="1705994080773" duration="17031000" />
+      <workItem from="1706018133077" duration="4360000" />
+      <workItem from="1706078525929" duration="6034000" />
+      <workItem from="1706100012798" duration="9460000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <option name="closed" value="true" />
@@ -125,7 +180,23 @@
       <option name="project" value="LOCAL" />
       <updated>1705405678237</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Implement Fana(), Etv(), and ESAT()">
+      <option name="closed" value="true" />
+      <created>1705590435224</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1705590435224</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fix typo in fana.py">
+      <option name="closed" value="true" />
+      <created>1705590481080</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1705590481080</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,6 +205,11 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="First Commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="First Commit" />
+    <MESSAGE value="Implement Fana(), Etv(), and ESAT()" />
+    <MESSAGE value="fix typo in fana.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix typo in fana.py" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/NewsAggregator$sendEmail.coverage" NAME="sendUpdate Coverage Results" MODIFIED="1706000314730" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/aggregator" />
   </component>
 </project>
