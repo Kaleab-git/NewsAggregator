@@ -46,8 +46,10 @@ class Fana(NewsSource):
                     news_list.append(news)
                     news_count += 1
 
-            create_updates(self.source, news_list)
+            # create_updates(self.source, news_list)
             print(f"          {self.source}: added {news_count}")
+            return news_list
 
         except Exception as e:
             print(f"Exception occurred while fetching from {self.source}: {e}")
+            return []

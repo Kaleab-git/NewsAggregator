@@ -1,6 +1,7 @@
 import base64
 import os
 from collections import defaultdict
+from datetime import datetime, time
 
 from email.message import EmailMessage
 from googleapiclient.discovery import build
@@ -12,6 +13,9 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from .models import News, Subscription
 from django.template import Context, Template
 from django.template.loader import render_to_string
+from .models import Schedule
+
+
 
 SCOPES = ["https://www.googleapis.com/auth/gmail.send"]
 
@@ -78,7 +82,7 @@ def gmail_send_message(creds, body, subject, recipient):
     return send_message
 
 
-def update_subscribers(updates, news_source):
+def update_subscribers(updates):
     credentials = authenticate_gmail()
     # Convert defaultdicts to dict
     updates = dict(updates)
@@ -87,51 +91,55 @@ def update_subscribers(updates, news_source):
 
     for email in updates:
         keywords_list = list(updates[email].keys())
-        keywords = ""
-        if len(keywords_list) == 1:
-            keywords = keywords_list[0]
-        elif len(keywords_list) == 2:
-            keywords = keywords_list[0] + " and " + keywords_list[1]
-        elif len(keywords_list) == 3:
-            keywords = keywords_list[0] + ", " + keywords_list[1] + ", and " + keywords_list[2]
-        elif len(keywords_list) >= 4:
-            keywords = keywords_list[0] + ", " + keywords_list[1] + ", and more"
+
+        time_now = datetime.now().time()
+        updates_ready_for_email = defaultdict()
+
+        for keyword in keywords_list:
+            schedule = Schedule.objects.get(email=email, keyword=keyword)
+
+            if schedule:
+                if schedule.schedule == "immediately":
+                    updates_ready_for_email[keyword] = updates[email][keyword]
+                elif schedule.schedule == "once_a_day":
+                    # Regardless of when the server started, a 15min increment lands in 6pm - 6:15pm only once
+                    # Send a 6pm update
+                    if time(18, 00) <= time_now <= time(18, 14):
+                        updates_ready_for_email[keyword] = updates[email][keyword]
+                elif schedule.schedule == "twice_a_day":
+                    # Send a 12pm update
+                    if time(12, 0) <= time_now <= time(12, 14):
+                        updates_ready_for_email[keyword] = updates[email][keyword]
+                    # Send a 6pm update
+                    if time(18, 0) <= time_now <= time(18, 14):
+                        updates_ready_for_email[keyword] = updates[email][keyword]
 
         template_path = os.path.join(os.path.dirname(__file__), 'templates', 'email-template.html')
 
-        context = context = {'client_update': updates[email]}
+        context = {'client_update': updates[email]}
         html_content = render_to_string(template_path, context)
-        email_subject = f"{news_source} just posted about news about {keywords}"
+
+        email_subject = f"Check out new"
         gmail_send_message(credentials, html_content, email_subject, email)
 
 
-def update_admin(keywords_found, news_source):
-    credentials = authenticate_gmail()
-    body_text = f"New keywords found from {news_source}"
-    email_subject = f"{len(keywords_found)} keywords found from {news_source}"
-    gmail_send_message(credentials, body_text, email_subject, "kaleab@a2sv.org")
-
-
-def create_updates(news_source, news_list):
-    keywords_count = defaultdict(int)
+def create_updates(news_list):
     updates = defaultdict(lambda: defaultdict(list))
-    keywords_queryset = Subscription.objects.values_list('keyword', flat=True).distinct()
+    keywords_queryset = Schedule.objects.values_list('keyword', flat=True).distinct()
     keywords_set = set(keywords_queryset)
     for news in news_list:
         seen = set()
         for word in news.title.split():
+            # TODO: since content is mostly amharic .lower() probably wont matter
             word_lower = word.lower()
             # Check if each word is a keyword(and has subscribers)
             # TODO: Removing punctuations
             if word_lower in keywords_set:
                 # To avoid multiple updates by the same keyword and from the same new source
                 seen.add(word_lower)
-                keywords_count[word_lower] += 1
-                emails = Subscription.objects.get(keyword=word_lower).subscribers
+                emails = Schedule.objects.filter(keyword=word_lower).values_list('email', flat=True)
                 # Create an update for each email
                 for email in emails:
                     updates[email][word_lower].append(news)
 
-    if len(news_list) > 0:
-        update_admin(keywords_count, news_source)
-        update_subscribers(updates, news_source)
+    return updates

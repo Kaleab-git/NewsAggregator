@@ -83,9 +83,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'news-aggregator',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
+        'USER': 'news-aggregator_owner',
+        'PASSWORD': 'kXc40hliwZPW',
+        'HOST': 'ep-odd-sun-a51uyx3n.us-east-2.aws.neon.tech',
         'PORT': '5432',
     }
 }

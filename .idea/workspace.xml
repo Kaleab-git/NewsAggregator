@@ -4,24 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8732b84e-f12b-445b-8d41-63433d90999a" name="Changes" comment="fix typo in fana.py">
-      <change afterPath="$PROJECT_DIR$/aggregator/credentials.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aggregator/management/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aggregator/management/commands/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aggregator/management/commands/aggregate.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0009_subscription.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0010_alter_subscription_subscribers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aggregator/sendUpdate.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aggregator/templates/email-template.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aggregator/token.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/token.json" afterDir="false" />
+    <list default="true" id="8732b84e-f12b-445b-8d41-63433d90999a" name="Changes" comment="[feature] Implement subscription to keyword">
+      <change afterPath="$PROJECT_DIR$/aggregator/bbc_amharic.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0011_email_keyword_subscription_frequency_and_more.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0012_delete_subscription.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0013_subscription.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0014_alter_subscription_keyword_and_more.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0015_delete_subscription.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0016_subscription.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0017_schedule.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewsAggregator/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsAggregator/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aggregator/aggregate.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/aggregate.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/aggregator/esat.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/esat.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/aggregator/etv.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/etv.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/aggregator/fana.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/fana.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aggregator/newsSource.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/newsSource.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aggregator/sendUpdate.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/sendUpdate.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/aggregator/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/token.json" beforeDir="false" afterPath="$PROJECT_DIR$/token.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,8 +34,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -61,6 +61,9 @@
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;Django Server.NewsAggregator.executor&quot;: &quot;Run&quot;,
+    &quot;Python.bbc_amharic.executor&quot;: &quot;Run&quot;,
+    &quot;Python.delete.executor&quot;: &quot;Run&quot;,
+    &quot;Python.etv.executor&quot;: &quot;Run&quot;,
     &quot;Python.sendEmail.executor&quot;: &quot;Run&quot;,
     &quot;Python.sendUpdate.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
@@ -83,6 +86,75 @@
     </key>
   </component>
   <component name="RunManager" selected="Django Server.NewsAggregator">
+    <configuration name="bbc_amharic" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="NewsAggregator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/aggregator" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/aggregator/bbc_amharic.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="delete" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="NewsAggregator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/aggregator" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/aggregator/delete.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="etv" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="NewsAggregator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/aggregator" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/aggregator/etv.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="sendUpdate" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="NewsAggregator" />
       <option name="ENV_FILES" value="" />
@@ -133,6 +205,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.etv" />
+        <item itemvalue="Python.bbc_amharic" />
+        <item itemvalue="Python.delete" />
         <item itemvalue="Python.sendUpdate" />
       </list>
     </recent_temporary>
@@ -170,7 +245,17 @@
       <workItem from="1705994080773" duration="17031000" />
       <workItem from="1706018133077" duration="4360000" />
       <workItem from="1706078525929" duration="6034000" />
-      <workItem from="1706100012798" duration="9460000" />
+      <workItem from="1706100012798" duration="27004000" />
+      <workItem from="1706270614393" duration="1282000" />
+      <workItem from="1706506392642" duration="31605000" />
+      <workItem from="1706685702997" duration="5903000" />
+      <workItem from="1706702935210" duration="1648000" />
+      <workItem from="1706768899542" duration="430000" />
+      <workItem from="1706815791679" duration="98000" />
+      <workItem from="1710766773455" duration="133000" />
+      <workItem from="1710833002801" duration="698000" />
+      <workItem from="1710834773335" duration="919000" />
+      <workItem from="1715848763516" duration="6419000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <option name="closed" value="true" />
@@ -196,7 +281,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705590481080</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="[feature] Implement subscription to keyword">
+      <option name="closed" value="true" />
+      <created>1706113055200</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1706113055200</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -207,9 +300,13 @@
     <MESSAGE value="First Commit" />
     <MESSAGE value="Implement Fana(), Etv(), and ESAT()" />
     <MESSAGE value="fix typo in fana.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix typo in fana.py" />
+    <MESSAGE value="[feature] Implement subscription to keyword" />
+    <option name="LAST_COMMIT_MESSAGE" value="[feature] Implement subscription to keyword" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/NewsAggregator$bbc_amharic.coverage" NAME="bbc_amharic Coverage Results" MODIFIED="1706509002982" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/aggregator" />
+    <SUITE FILE_PATH="coverage/NewsAggregator$delete.coverage" NAME="delete Coverage Results" MODIFIED="1706268882326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/aggregator" />
     <SUITE FILE_PATH="coverage/NewsAggregator$sendEmail.coverage" NAME="sendUpdate Coverage Results" MODIFIED="1706000314730" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/aggregator" />
+    <SUITE FILE_PATH="coverage/NewsAggregator$etv.coverage" NAME="etv Coverage Results" MODIFIED="1706509037621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/aggregator" />
   </component>
 </project>

@@ -1,7 +1,7 @@
-import threading
 from .fana import Fana
 from .esat import Esat
 from .etv import Etv
+from .bbc_amharic import BBCAmharic
 
 
 class Aggregator:
@@ -13,11 +13,15 @@ class Aggregator:
         self.newsSources.append(Etv())
         self.newsSources.append(Esat())
         self.newsSources.append(Fana())
+        self.newsSources.append(BBCAmharic())
 
     def LoadAllNews(self):
+        news_list = []
         for newsSource in self.newsSources:
-            newsSource.tryLoadAndSaveNews()
+            news_list.extend(newsSource.tryLoadAndSaveNews())
+
+        return news_list
 
     def run(self):
         self.AddNewsSources()
-        self.LoadAllNews()
+        return self.LoadAllNews()
