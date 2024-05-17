@@ -1,7 +1,7 @@
 import time
 import json
 from datetime import datetime
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseBadRequest
 from .models import Schedule
 from django.http import JsonResponse
 from django.core.serializers import serialize
@@ -72,6 +72,9 @@ def search(request):
 
 def verify(request, _id, status):
     nr.verify_news(_id, status)
+    if status.lower() not in ["true", "false"]:
+        return HttpResponseBadRequest("Invalid status")
+
     return HttpResponse("Verified Successfully")
 
 
@@ -83,7 +86,6 @@ def subscribe(request):
 
     json_data = json.loads(request.body.decode('utf-8'))
 
-    # json_data is a Python dictionary representing the parsed JSON
     keyword = json_data.get('keyword', '').lower()
     email = json_data.get('email', '')
     schedule = json_data.get('schedule', '').lower()
@@ -105,12 +107,9 @@ def subscribe(request):
         )
 
         new_subscription.save()
-        message = f'Successfully subscribed to "{keyword}".'
+        return HttpResponse(f'Successfully subscribed to "{keyword}".')
     else:
-        # If the keyword already exists, check if the user is already subscribed
-        message = f'Already subscribed to "{keyword}".'
-
-    return HttpResponse("Updated Subscribers!")
+        return HttpResponseBadRequest(f'Already subscribed to "{keyword}".')
 
 
 # TODO: Maybe benchmark this. It might make the server slow

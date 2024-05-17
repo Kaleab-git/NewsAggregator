@@ -36,7 +36,14 @@ class NewsRepository:
         )
 
         results = [
-            {"title": item.title, "content": item.content}
+            {
+                "id": item.id,
+                "title": item.title,
+                "pub_date": item.pub_date,
+                "source": item.source,
+                "thumbnail": item.thumbnail,
+                "is_verified": item.is_verified
+            }
             for item in search_results_queryset
         ]
         return results
