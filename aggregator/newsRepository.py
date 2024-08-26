@@ -19,12 +19,14 @@ class NewsRepository:
     @staticmethod
     def verify_news(news_id, status_string):
         news = News.objects.get(id=news_id)
-        if status_string == "true" or status_string == "True":
+        if status_string.lower() == "true":
             status = True
         else:
             status = False
 
+        print(f"Updating news status from {news.is_verified} to {status}")
         news.is_verified = status
+        print(f"News status: {news.is_verified}")
         news.save()
 
     @staticmethod
@@ -39,6 +41,7 @@ class NewsRepository:
             {
                 "id": item.id,
                 "title": item.title,
+                "link": item.link,
                 "pub_date": item.pub_date,
                 "source": item.source,
                 "thumbnail": item.thumbnail,

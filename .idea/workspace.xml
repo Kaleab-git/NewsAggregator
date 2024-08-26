@@ -4,23 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8732b84e-f12b-445b-8d41-63433d90999a" name="Changes" comment="[feature] Implement subscription to keyword">
-      <change afterPath="$PROJECT_DIR$/aggregator/bbc_amharic.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0011_email_keyword_subscription_frequency_and_more.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0012_delete_subscription.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0013_subscription.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0014_alter_subscription_keyword_and_more.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0015_delete_subscription.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0016_subscription.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aggregator/migrations/0017_schedule.py" afterDir="false" />
+    <list default="true" id="8732b84e-f12b-445b-8d41-63433d90999a" name="Changes" comment="include additional fields in search result">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsAggregator/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsAggregator/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aggregator/aggregate.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/aggregate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aggregator/esat.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/esat.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/aggregator/etv.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/etv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aggregator/fana.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/fana.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aggregator/newsRepository.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/newsRepository.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/aggregator/sendUpdate.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/sendUpdate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aggregator/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aggregator/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregator/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/token.json" beforeDir="false" afterPath="$PROJECT_DIR$/token.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,30 +45,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Django Server.NewsAggregator.executor&quot;: &quot;Run&quot;,
-    &quot;Python.bbc_amharic.executor&quot;: &quot;Run&quot;,
-    &quot;Python.delete.executor&quot;: &quot;Run&quot;,
-    &quot;Python.etv.executor&quot;: &quot;Run&quot;,
-    &quot;Python.sendEmail.executor&quot;: &quot;Run&quot;,
-    &quot;Python.sendUpdate.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Django Server.NewsAggregator.executor": "Run",
+    "Python.bbc_amharic.executor": "Run",
+    "Python.delete.executor": "Run",
+    "Python.etv.executor": "Run",
+    "Python.sendEmail.executor": "Run",
+    "Python.sendUpdate.executor": "Run",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\tesfa\PycharmProjects\NewsAggregator\aggregator" />
@@ -255,7 +244,12 @@
       <workItem from="1710766773455" duration="133000" />
       <workItem from="1710833002801" duration="698000" />
       <workItem from="1710834773335" duration="919000" />
-      <workItem from="1715848763516" duration="6419000" />
+      <workItem from="1715848763516" duration="17557000" />
+      <workItem from="1716014776656" duration="8775000" />
+      <workItem from="1716026605640" duration="1391000" />
+      <workItem from="1716368126214" duration="12000" />
+      <workItem from="1716368498318" duration="574000" />
+      <workItem from="1724660021085" duration="3535000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <option name="closed" value="true" />
@@ -289,7 +283,55 @@
       <option name="project" value="LOCAL" />
       <updated>1706113055200</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="[feature] Implement subscription to keyword">
+      <option name="closed" value="true" />
+      <created>1715876676148</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1715876676148</updated>
+    </task>
+    <task id="LOCAL-00006" summary="[feature] Implement subscription to keyword">
+      <option name="closed" value="true" />
+      <created>1715876759946</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1715876759946</updated>
+    </task>
+    <task id="LOCAL-00007" summary="push requirements.txt">
+      <option name="closed" value="true" />
+      <created>1715877484673</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1715877484673</updated>
+    </task>
+    <task id="LOCAL-00008" summary="add gunicorn">
+      <option name="closed" value="true" />
+      <created>1715878561061</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1715878561061</updated>
+    </task>
+    <task id="LOCAL-00009" summary="add render to allowed hosts">
+      <option name="closed" value="true" />
+      <created>1715879718110</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1715879718110</updated>
+    </task>
+    <task id="LOCAL-00010" summary="include additional fields in search result">
+      <option name="closed" value="true" />
+      <created>1715953810249</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1715953810249</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -301,7 +343,11 @@
     <MESSAGE value="Implement Fana(), Etv(), and ESAT()" />
     <MESSAGE value="fix typo in fana.py" />
     <MESSAGE value="[feature] Implement subscription to keyword" />
-    <option name="LAST_COMMIT_MESSAGE" value="[feature] Implement subscription to keyword" />
+    <MESSAGE value="push requirements.txt" />
+    <MESSAGE value="add gunicorn" />
+    <MESSAGE value="add render to allowed hosts" />
+    <MESSAGE value="include additional fields in search result" />
+    <option name="LAST_COMMIT_MESSAGE" value="include additional fields in search result" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/NewsAggregator$bbc_amharic.coverage" NAME="bbc_amharic Coverage Results" MODIFIED="1706509002982" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/aggregator" />

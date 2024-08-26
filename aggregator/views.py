@@ -70,16 +70,20 @@ def search(request):
     return JsonResponse({"results": results})
 
 
+@csrf_exempt
 def verify(request, _id, status):
     nr.verify_news(_id, status)
     if status.lower() not in ["true", "false"]:
         return HttpResponseBadRequest("Invalid status")
 
-    return HttpResponse("Verified Successfully")
+    return HttpResponse("Status Updated Successfully")
 
 
 @csrf_exempt
 def subscribe(request):
+    if request.method != 'POST':
+        return HttpResponseBadRequest('Invalid request method')
+
     total_subscriptions = Schedule.objects.count()
     if total_subscriptions > 100:
         return HttpResponseForbidden({'message': 'Subscription limit reached. Cannot accept new subscriptions.'})
@@ -96,8 +100,8 @@ def subscribe(request):
     subscription = Schedule.objects.filter(keyword=keyword, email=email).first()
 
     if not subscription:
-        if (schedule != "immediately" and schedule != "once_a_day"
-                and schedule != "twice_a_day" and schedule != "once_a_week"):
+        allowed_schedules = {"immediately", "once_a_day", "twice_a_day", "once_a_week"}
+        if schedule not in allowed_schedules:
             return HttpResponseForbidden({'message': 'No such schedule'})
 
         new_subscription = Schedule(

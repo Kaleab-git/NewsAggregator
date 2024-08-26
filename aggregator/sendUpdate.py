@@ -10,7 +10,6 @@ from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 
-from .models import News, Subscription
 from django.template import Context, Template
 from django.template.loader import render_to_string
 from .models import Schedule
@@ -83,6 +82,17 @@ def gmail_send_message(creds, body, subject, recipient):
 
 
 def update_subscribers(updates):
+    """
+    Selects updates ready to be sent, deletes them from updates, and sends them over email
+    :param updates: nested dictionary with updates generated from news collected so far
+    has the following structure:
+    {
+        "emai1": {
+            "keyword1": [News1, News2],
+            "keyword2": [News2, News3]
+        },
+    }
+    """
     credentials = authenticate_gmail()
     # Convert defaultdicts to dict
     updates = dict(updates)
@@ -106,13 +116,16 @@ def update_subscribers(updates):
                     # Send a 6pm update
                     if time(18, 00) <= time_now <= time(18, 14):
                         updates_ready_for_email[keyword] = updates[email][keyword]
+                        del updates[email][keyword]
                 elif schedule.schedule == "twice_a_day":
                     # Send a 12pm update
                     if time(12, 0) <= time_now <= time(12, 14):
                         updates_ready_for_email[keyword] = updates[email][keyword]
+                        del updates[email][keyword]
                     # Send a 6pm update
                     if time(18, 0) <= time_now <= time(18, 14):
                         updates_ready_for_email[keyword] = updates[email][keyword]
+                        del updates[email][keyword]
 
         template_path = os.path.join(os.path.dirname(__file__), 'templates', 'email-template.html')
 
